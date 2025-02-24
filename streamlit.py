@@ -10,7 +10,7 @@ import string
 @st.cache_resource
 def load_resources():
     try:
-        # Load the LSTM model
+        # Load the LSTM model (using the correct file format)
         model = load_model("model_lstm.h5")
         
         # Load the label encoder
@@ -25,22 +25,57 @@ def load_resources():
         train_df = pd.read_csv('Data Train.csv')
         intent_response_mapping = dict(zip(train_df['Intent'], train_df['Respon']))
         
-        return model, label_encoder, text_vectorizer, intent_response_mapping
+        # Load the slangwords dictionary
+        slangwords_dict = load_slangwords('Slangword-indonesian.csv')
+        
+        # Add manual slangwords that were used during training
+        manual_slang_dict = {
+            "mhs": "mahasiswa",
+            "maba": "mahasiswa baru",
+            "pkkmb": "pengenalan kehidupan kampus bagi mahasiswa baru"
+        }
+        slangwords_dict.update(manual_slang_dict)
+        
+        return model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict
     except Exception as e:
         st.error(f"Error loading resources: {str(e)}")
-        return None, None, None, None
+        return None, None, None, None, None
 
-# Text preprocessing function
-def preprocess_text(text):
+# Load slangwords from CSV file
+def load_slangwords(file_path):
+    try:
+        slangwords = {}
+        import csv
+        with open(file_path, mode='r', encoding='utf-8', newline='') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                if len(row) >= 2:  # Ensure there are at least two columns
+                    slang = row[0].strip()  # Slang word
+                    correct = row[1].strip()  # Replacement word
+                    slangwords[slang] = correct
+        return slangwords
+    except Exception as e:
+        st.warning(f"Could not load slangwords file: {str(e)}. Proceeding with empty dictionary.")
+        return {}
+
+# Fix slangwords in text (to match training preprocessing)
+def fix_slangwords(text, slangwords_dict):
+    words = text.split()
+    fixed_words = [slangwords_dict[word.lower()] if word.lower() in slangwords_dict else word for word in words]
+    return ' '.join(fixed_words)
+
+# Text preprocessing function (to match training preprocessing)
+def preprocess_text(text, slangwords_dict):
     text = text.lower()
-    text = text.translate(str.maketrans('', '', string.punctuation))
+    text = text.translate(str.maketrans('', '', string.punctuation))  # Remove punctuation
+    text = fix_slangwords(text, slangwords_dict)  # Fix slangwords
     return text
 
 # Prediction function
-def predict_intent_and_response(user_input, model, label_encoder, text_vectorizer, intent_response_mapping):
+def predict_intent_and_response(user_input, model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict):
     try:
-        # Preprocess the input
-        processed_input = preprocess_text(user_input)
+        # Preprocess the input (using same preprocessing as training)
+        processed_input = preprocess_text(user_input, slangwords_dict)
         
         # Vectorize the text
         input_seq = text_vectorizer([processed_input])
@@ -56,10 +91,10 @@ def predict_intent_and_response(user_input, model, label_encoder, text_vectorize
         response = intent_response_mapping.get(predicted_intent, 
             "Maaf, saya tidak dapat memahami pertanyaan Anda. Mohon ajukan pertanyaan dengan cara yang berbeda.")
         
-        return predicted_intent, response
+        return predicted_intent, response, prediction[0][predicted_class_index]
     except Exception as e:
         st.error(f"Error during prediction: {str(e)}")
-        return None, "Terjadi kesalahan dalam memproses pertanyaan Anda. Silakan coba lagi."
+        return None, "Terjadi kesalahan dalam memproses pertanyaan Anda. Silakan coba lagi.", 0.0
 
 def local_css():
     st.markdown("""
