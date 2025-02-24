@@ -99,101 +99,102 @@ def predict_intent_and_response(user_input, model, label_encoder, text_vectorize
 
 def local_css():
     st.markdown("""
-<style>
-body, .main, .stApp, .chat-container, .header-container, .chat-input, .main-content {
-    background-color: white !important;
-}
-
-.chat-message {
-    padding: 1rem;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.message-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.bot-name {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #2E4053;
-}
-
-.message-bubble {
-    padding: 12px 16px;
-    border-radius: 15px;
-    max-width: 80%;
-    line-height: 1.4;
-}
-
-.user-message {
-    background-color: #E9ECEF;
-    margin-left: auto;
-    margin-right: 2%;
-}
-
-.bot-message {
-    background-color: #007AFF;
-    color: white;
-    margin-right: auto;
-    margin-left: 2%;
-}
-
-.chat-input {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-}
-
-.header-container {
-    padding: 20px;
-    text-align: center;
-    border-bottom: 1px solid #E9ECEF;
-    margin-bottom: 30px;
-    background-color: white;
-}
-
-.stButton button {
-    background-color: #007AFF;
-    color: white;
-    border-radius: 20px;
-    padding: 0.5rem 2rem;
-    border: none;
-    transition: all 0.3s ease;
-}
-
-.stButton button:hover {
-    background-color: #0056b3;
-}
-
-.stTextInput input {
-    border-radius: 20px;
-    padding: 0.8rem 1rem;
-    border: 1px solid #E9ECEF;
-    font-size: 16px;
-}
-
-.main-content {
-    margin-bottom: 100px;
-    padding: 0 20px;
-}
-</style>
+    <style>
+    body, .main, .stApp, .chat-container, .header-container, .chat-input, .main-content {
+        background-color: white !important;
+    }
+    
+    .chat-message {
+        padding: 1rem;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .message-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .bot-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #2E4053;
+    }
+    
+    .message-bubble {
+        padding: 12px 16px;
+        border-radius: 15px;
+        max-width: 80%;
+        line-height: 1.4;
+    }
+    
+    .user-message {
+        background-color: #E9ECEF;
+        margin-left: auto;
+        margin-right: 2%;
+    }
+    
+    .bot-message {
+        background-color: #007AFF;
+        color: white;
+        margin-right: auto;
+        margin-left: 2%;
+    }
+    
+    .chat-input {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid #E9ECEF;
+        margin-bottom: 30px;
+        background-color: white;
+    }
+    
+    .stButton button {
+        background-color: #007AFF;
+        color: white;
+        border-radius: 20px;
+        padding: 0.5rem 2rem;
+        border: none;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton button:hover {
+        background-color: #0056b3;
+    }
+    
+    .stTextInput input {
+        border-radius: 20px;
+        padding: 0.8rem 1rem;
+        border: 1px solid #E9ECEF;
+        font-size: 16px;
+    }
+    
+    .main-content {
+        margin-bottom: 100px;
+        padding: 0 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 def display_message(message, is_user=True):
     bot_avatar = "https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg"
@@ -220,7 +221,6 @@ def display_message(message, is_user=True):
             </div>
         </div>
         """, unsafe_allow_html=True)
-
 def main():
     st.set_page_config(
         page_title="EduBot - Asisten Pendaftaran Mahasiswa",
