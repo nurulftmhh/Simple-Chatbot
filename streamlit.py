@@ -11,7 +11,7 @@ import string
 def load_resources():
     try:
         # Load the LSTM model (using the correct file format)
-        model = load_model("model_lstm.h5")
+        model = load_model("model.pkl")
         
         # Load the label encoder
         with open("label_encoder.pkl", "rb") as f:
