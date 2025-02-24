@@ -238,7 +238,7 @@ def main():
         st.session_state.conversation = []
     
     # Load resources
-    model, label_encoder, text_vectorizer, intent_response_mapping = load_resources()
+    model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict = load_resources()
     
     if not all([model, label_encoder, text_vectorizer, intent_response_mapping]):
         st.error("Gagal memuat sumber daya yang diperlukan. Silakan refresh halaman.")
