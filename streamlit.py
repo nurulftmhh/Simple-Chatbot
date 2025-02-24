@@ -187,6 +187,7 @@ def local_css():
         padding: 0.8rem 1rem;
         border: 1px solid #E9ECEF;
         font-size: 16px;
+        color: black !important;
     }
     
     .main-content {
