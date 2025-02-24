@@ -110,6 +110,7 @@ def local_css():
         margin-bottom: 10px;
         display: flex;
         flex-direction: column;
+        color: black !important;
     }
     
     .message-content {
@@ -186,8 +187,7 @@ def local_css():
         border-radius: 20px;
         padding: 0.8rem 1rem;
         border: 1px solid #E9ECEF;
-        font-size: 16px;
-        color: black !important;
+        font-size: 16px;        
     }
     
     .main-content {
