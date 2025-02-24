@@ -12,7 +12,7 @@ import string
 def load_resources():
     try:
         # Load the LSTM model (using the correct file format)
-        model = joblib.load("model.pkl")
+        model = load_model("model2_lstm.h5")
         
         # Load the label encoder
         with open("label_encoder.pkl", "rb") as f:
