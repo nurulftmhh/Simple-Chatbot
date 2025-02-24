@@ -283,7 +283,7 @@ def main():
         })
         
         # Get bot response
-        intent, response = predict_intent_and_response(
+        intent, response, confidence = predict_intent_and_response(
             user_input, model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict
         )
         
