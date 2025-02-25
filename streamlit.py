@@ -229,6 +229,47 @@ def local_css():
         border: 1px solid #E0E0E0 !important;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
     }
+
+    /* Hide input instructions completely */
+    [data-testid="InputInstructions"], 
+    div.st-emotion-cache-ysi923,
+    div.st-emotion-cache-1qg05tj,
+    div.st-emotion-cache-16j3ejq,
+    div.st-emotion-cache-e1nzilvr,
+    .st-emotion-cache-16idsys p,
+    .stTextInput div small {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }    
+    
+    /* Hide all small text within stTextInput that might contain instructions */
+    .stTextInput small {
+        display: none !important;
+    }
+    
+    /* Targeting new Streamlit class names that might contain input instructions */
+    div[data-testid="stFormSubmitButton"] ~ div small,
+    div[data-baseweb="input"] ~ div,
+    div[data-baseweb="input"] ~ small {
+        display: none !important;
+    }
+    
+    /* Additional selector to target the "Press Enter to submit form" text */
+    div.st-emotion-cache-16j3ejq,
+    div.st-emotion-cache-1fttcpj,
+    div.st-emotion-cache-16idsys,
+    form[data-testid="stForm"] small {
+        display: none !important;
+    }
+    
+    /* For Streamlit versions that use different class names */
+    div[class*="css"] small,
+    div[class*="css"] p[class*="css"] {
+        display: none !important;
+    }
     
     @media (max-width: 768px) {
         .stContainer, .css-1d391kg, .css-18e3th9 {
@@ -264,6 +305,7 @@ def display_message(message, is_user=True):
             </div>
         </div>
         """, unsafe_allow_html=True)
+
 def main():
     st.set_page_config(
         page_title="EduBot - Asisten Pendaftaran Mahasiswa",
@@ -303,11 +345,31 @@ def main():
     
     # Chat input
     with st.container():
+        # Add a JavaScript snippet to hide the input instructions 
+        st.markdown("""
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide all elements that might contain instructions
+            const smallElements = document.querySelectorAll('small');
+            smallElements.forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Find and hide elements with specific data-testid
+            const inputInstructions = document.querySelectorAll('[data-testid="InputInstructions"]');
+            inputInstructions.forEach(el => {
+                el.style.display = 'none';
+            });
+        });
+        </script>
+        """, unsafe_allow_html=True)
+        
         with st.form(key='chat_form', clear_on_submit=True):
             user_input = st.text_input(
                 "",
                 placeholder="Ketik pertanyaan Anda di sini...",
-                key="user_input"
+                key="user_input",
+                label_visibility="collapsed"  # This hides the label
             )
             
             col1, col2, col3 = st.columns([4, 1, 4])
