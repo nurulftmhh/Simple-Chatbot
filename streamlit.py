@@ -192,10 +192,33 @@ def local_css():
         font-size: 16px;   
     }
     
+    #MainMenu, footer, header {
+        visibility: hidden;
+    }
+    
     .main-content {
         margin-bottom: 100px;
         padding: 0 20px;
+    } 
+    
+    .stForm {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }   
+    /* Fix the container width */
+    .stContainer, .css-1d391kg, .css-18e3th9 {
+        padding-left: 5rem;
+        padding-right: 5rem;
+        max-width: 1000px;
+        margin: 0 auto;
     }
+    
+    @media (max-width: 768px) {
+        .stContainer, .css-1d391kg, .css-18e3th9 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }    
     </style>
     """, unsafe_allow_html=True)
 
