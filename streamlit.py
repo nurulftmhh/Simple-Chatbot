@@ -190,6 +190,20 @@ def local_css():
         border: 1px solid #E9ECEF;
         font-size: 16px;
     }
+
+    [data-testid="InputInstructions"], 
+    div.st-emotion-cache-ysi923,
+    div.st-emotion-cache-1qg05tj,
+    div.st-emotion-cache-16j3ejq,
+    div.st-emotion-cache-e1nzilvr,
+    .st-emotion-cache-16idsys p,
+    .stTextInput div small {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }      
     
     .main-content {
         margin-bottom: 100px;
