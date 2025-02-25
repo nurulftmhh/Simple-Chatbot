@@ -184,9 +184,14 @@ def local_css():
     .stButton button:hover {
         background-color: #0056b3;
     }
+
+    .stTextInput > div > div {
+        background-color: #FFFFFF !important;
+        border-radius: 25px !important;
+        border: 1px solid #E9ECEF !important;
+    }
     
     .stTextInput input {
-        border-radius: 20px;
         padding: 0.8rem 1rem;
         border: 1px solid #E9ECEF;
         font-size: 16px;   
@@ -196,6 +201,14 @@ def local_css():
     .stTextInput input::placeholder {
         color: #A9A9A9;
     }    
+
+    .stForm > div {
+        background-color: white !important;
+    }
+
+    div.stStreamlitApp, div.main, div.block-container, div[data-testid="stForm"] {
+        background-color: white !important;
+    }
     
     #MainMenu, footer, header {
         visibility: hidden;
@@ -210,6 +223,12 @@ def local_css():
         padding-bottom: 0 !important;
         margin-bottom: 0 !important;
     }   
+
+    .stTextInput > div {
+        border-radius: 30px !important;
+        border: 1px solid #E0E0E0 !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+    }
     
     @media (max-width: 768px) {
         .stContainer, .css-1d391kg, .css-18e3th9 {
