@@ -181,11 +181,10 @@ def local_css():
     }
     
     .stButton button:hover {
-        background-color: grey;
+        background-color: white;
     }
     
     .stTextInput input {
-        border-radius: 20px;
         padding: 0.8rem 1rem;
         border: 1px solid #E9ECEF;
         font-size: 16px;
