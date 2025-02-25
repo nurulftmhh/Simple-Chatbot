@@ -186,6 +186,7 @@ def local_css():
     
     .stTextInput input {
         padding: 0.8rem 1rem;
+        border-radius: 5px
         border: 1px solid #E9ECEF;
         font-size: 16px;
     }
