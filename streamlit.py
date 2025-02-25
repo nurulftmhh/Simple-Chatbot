@@ -229,7 +229,7 @@ def display_message(message, is_user=True):
             <div class="message-content">
                 <img src="{bot_avatar}" class="avatar" alt="EduBot">
                 <div style="flex-grow: 1;">
-                    <div class="bot-name">EduBot</div>
+                    <div class="bot-name" style="color: white;">EduBot</div>
                     <div class="message-bubble bot-message">
                         {message}
                     </div>
