@@ -231,7 +231,7 @@ def display_message(message, is_user=True):
                 <div style="flex-grow: 1;">
                     <div class="bot-name" style="color: white;">EduBot</div>
                     <div class="message-bubble bot-message">
-                        {st.text(response)}
+                        {st.text(message)}
                     </div>
                 </div>
             </div>
