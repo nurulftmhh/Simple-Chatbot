@@ -205,13 +205,6 @@ def local_css():
         padding-bottom: 0 !important;
         margin-bottom: 0 !important;
     }   
-    /* Fix the container width */
-    .stContainer, .css-1d391kg, .css-18e3th9 {
-        padding-left: 5rem;
-        padding-right: 5rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
     
     @media (max-width: 768px) {
         .stContainer, .css-1d391kg, .css-18e3th9 {
