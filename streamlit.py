@@ -168,7 +168,6 @@ def local_css():
         text-align: center;
         border-bottom: 1px solid #E9ECEF;
         margin-bottom: 30px;
-        background-color: white;
     }
     
     .stButton button {
@@ -250,7 +249,7 @@ def main():
         <img src="https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg" 
              style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
         <h1 style="margin: 10px 0; font-size: 28px;">EduBot</h1>
-        <p style="color: #666; font-size: 16px;">Asisten Pendaftaran Mahasiswa Baru</p>
+        <p style="color: white; font-size: 16px;">Asisten Pendaftaran Mahasiswa Baru</p>
     </div>
     """, unsafe_allow_html=True)
     
