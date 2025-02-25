@@ -190,7 +190,12 @@ def local_css():
         padding: 0.8rem 1rem;
         border: 1px solid #E9ECEF;
         font-size: 16px;   
+        background-color: white !important
     }
+
+    .stTextInput input::placeholder {
+        color: #A9A9A9;
+    }    
     
     #MainMenu, footer, header {
         visibility: hidden;
