@@ -110,7 +110,7 @@ def local_css():
         margin-bottom: 10px;
         display: flex;
         flex-direction: column;
-        color: black !important;
+        color: white !important;
     }
     
     .message-content {
