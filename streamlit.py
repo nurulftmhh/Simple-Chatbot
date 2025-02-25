@@ -110,7 +110,7 @@ def local_css():
         margin-bottom: 10px;
         display: flex;
         flex-direction: column;
-        color: white !important;
+        color: black !important;
     }
     
     .message-content {
@@ -167,20 +167,22 @@ def local_css():
         text-align: center;
         border-bottom: 1px solid #E9ECEF;
         margin-bottom: 30px;
-        background-color: white;
+        background-color: black;
     }
     
     .stButton button {
-        background-color: blue;
+        background-color: #007AFF;
         color: white;
         border-radius: 20px;
         padding: 0.5rem 2rem;
         border: none;
         transition: all 0.3s ease;
+        font-weight: normal;
+        font-size: 16px;        
     }
     
     .stButton button:hover {
-        background-color: grey;
+        background-color: #0056b3;
     }
     
     .stTextInput input {
