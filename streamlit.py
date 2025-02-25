@@ -3,8 +3,6 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import pickle
-import joblib
-from tensorflow.keras.models import load_model
 import string
 
 # Cache the model loading
@@ -12,7 +10,7 @@ import string
 def load_resources():
     try:
         # Load the LSTM model (using the correct file format)
-        model = load_model("model2_lstm.h5")
+        model = tf.keras.models.load_model("model2_lstm.h5")
         
         # Load the label encoder
         with open("label_encoder.pkl", "rb") as f:
@@ -100,8 +98,18 @@ def predict_intent_and_response(user_input, model, label_encoder, text_vectorize
 def local_css():
     st.markdown("""
     <style>
-    body, .main, .stApp, .chat-container, .header-container, .chat-input, .main-content {
+    body {
         background-color: white !important;
+        color: black !important;
+    }
+    
+    .stApp {
+        background-color: white !important;
+    }
+    
+    .main .block-container {
+        background-color: white !important;
+        color: black !important;
     }
     
     .chat-message {
@@ -143,6 +151,7 @@ def local_css():
         background-color: #E9ECEF;
         margin-left: auto;
         margin-right: 2%;
+        color: black;
     }
     
     .bot-message {
@@ -167,7 +176,8 @@ def local_css():
         text-align: center;
         border-bottom: 1px solid #E9ECEF;
         margin-bottom: 30px;
-        background-color: black;
+        background-color: white !important;
+        color: black !important;
     }
     
     .stButton button {
@@ -189,25 +199,38 @@ def local_css():
         background-color: #FFFFFF !important;
         border-radius: 25px !important;
         border: 1px solid #E9ECEF !important;
+        color: black !important;
     }
     
     .stTextInput input {
         padding: 0.8rem 1rem;
         border: 1px solid #E9ECEF;
         font-size: 16px;   
-        background-color: white !important
+        background-color: white !important;
+        color: black !important;
     }
 
     .stTextInput input::placeholder {
         color: #A9A9A9;
     }    
 
+    .stForm {
+        background-color: white !important;
+        color: black !important;
+    }
+
     .stForm > div {
         background-color: white !important;
+        color: black !important;
     }
 
     div.stStreamlitApp, div.main, div.block-container, div[data-testid="stForm"] {
         background-color: white !important;
+        color: black !important;
+    }
+
+    div[data-testid="stMarkdownContainer"] {
+        color: black !important;
     }
     
     #MainMenu, footer, header {
@@ -217,6 +240,8 @@ def local_css():
     .main-content {
         margin-bottom: 100px;
         padding: 0 20px;
+        background-color: white !important;
+        color: black !important;
     } 
     
     .stForm {
@@ -228,6 +253,16 @@ def local_css():
         border-radius: 30px !important;
         border: 1px solid #E0E0E0 !important;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+    }
+    
+    /* Override any text that might be white */
+    * {
+        color: black;
+    }
+    
+    /* Exception for bot messages which should stay white */
+    .bot-message {
+        color: white !important;
     }
     
     @media (max-width: 768px) {
@@ -264,6 +299,7 @@ def display_message(message, is_user=True):
             </div>
         </div>
         """, unsafe_allow_html=True)
+
 def main():
     st.set_page_config(
         page_title="EduBot - Asisten Pendaftaran Mahasiswa",
@@ -289,7 +325,7 @@ def main():
     <div class="header-container">
         <img src="https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg" 
              style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
-        <h1 style="margin: 10px 0; font-size: 28px;">EduBot</h1>
+        <h1 style="margin: 10px 0; font-size: 28px; color: black;">EduBot</h1>
         <p style="color: #666; font-size: 16px;">Asisten Pendaftaran Mahasiswa Baru</p>
     </div>
     """, unsafe_allow_html=True)
