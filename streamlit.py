@@ -112,6 +112,7 @@ def local_css():
         margin-bottom: 10px;
         display: flex;
         flex-direction: column;
+        color: black;
     }
     
     .message-content {
