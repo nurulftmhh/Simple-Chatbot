@@ -214,17 +214,13 @@ def local_css():
     """, unsafe_allow_html=True)
 
 def display_message(message, is_user=True):
-    import html
-    import re
-    clean_message = re.sub(r'<[^>]*>', '', message)
-    message_escaped = html.escape(message)
     bot_avatar = "https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg"
     
     if is_user:
         st.markdown(f"""
         <div class="chat-message">
             <div class="message-bubble user-message">
-                {clean_message}
+                {message}
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -236,7 +232,7 @@ def display_message(message, is_user=True):
                 <div style="flex-grow: 1;">
                     <div class="bot-name" style="color: white;">EduBot</div>
                     <div class="message-bubble bot-message">
-                        {clean_message}
+                        {message}
                     </div>
                 </div>
             </div>
