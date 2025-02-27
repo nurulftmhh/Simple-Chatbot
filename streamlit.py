@@ -238,7 +238,7 @@ def display_message(message, is_user=True):
                 </div>
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
 def main():
     st.set_page_config(
