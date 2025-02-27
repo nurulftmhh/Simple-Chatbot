@@ -213,6 +213,8 @@ def local_css():
     """, unsafe_allow_html=True)
 
 def display_message(message, is_user=True):
+    import html
+    message_escaped = html.escape(message)
     bot_avatar = "https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg"
     
     if is_user:
