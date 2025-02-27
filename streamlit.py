@@ -204,7 +204,11 @@ def local_css():
         height: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
-    }      
+    }   
+    
+    .st-emotion-cache-acwcvw {
+        display: none !important;
+    }  
     
     .main-content {
         margin-bottom: 100px;
