@@ -4,8 +4,9 @@ import numpy as np
 import pandas as pd
 import pickle
 import joblib
-from tensorflow.keras.models import load_model
 import string
+import html
+from tensorflow.keras.models import load_model
 
 # Cache the model loading
 @st.cache_resource
@@ -221,7 +222,7 @@ def display_message(message, is_user=True):
         st.markdown(f"""
         <div class="chat-message">
             <div class="message-bubble user-message">
-                {message}
+                {message_escaped}
             </div>
         </div>
         """, unsafe_allow_html=True)
