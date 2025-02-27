@@ -251,6 +251,11 @@ def main():
     # Initialize session state
     if 'conversation' not in st.session_state:
         st.session_state.conversation = []
+        # Add initial greeting message
+        st.session_state.conversation.append({
+            'text': "Halo! Saya adalah asisten pendaftaran mahasiswa baru UBE. Saya siap membantu Anda dengan informasi tentang program studi, syarat pendaftaran, jadwal, dan lainnya. Apa yang ingin Anda ketahui?",
+            'is_user': False
+        })
     
     # Load resources
     model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict = load_resources()
