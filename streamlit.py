@@ -204,7 +204,11 @@ def local_css():
         height: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
-    }      
+    }   
+    
+    .st-emotion-cache-acwcvw {
+        display: none !important;
+    }  
     
     .main-content {
         margin-bottom: 100px;
@@ -251,6 +255,11 @@ def main():
     # Initialize session state
     if 'conversation' not in st.session_state:
         st.session_state.conversation = []
+        # Add initial greeting message
+        st.session_state.conversation.append({
+            'text': "Halo! Saya adalah asisten pendaftaran mahasiswa baru UBE. Saya siap membantu Anda dengan informasi terkait program studi, jadwal, syarat, cara pendaftaran, biaya kuliah, persiapan, proses, pengumuman seleksi, cara daftar ulang, dan informasi pkkmb bagi calon Mahasiswa Baru UBE. Apa yang ingin Anda tanyakan?",
+            'is_user': False
+        })
     
     # Load resources
     model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict = load_resources()
