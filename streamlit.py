@@ -24,7 +24,7 @@ def load_resources():
             text_vectorizer = pickle.load(f)
             
         # Load the training data for response mapping
-        train_df = pd.read_csv('Train.csv')
+        train_df = pd.read_csv('Data Train PMB.csv')
         intent_response_mapping = dict(zip(train_df['Intent'], train_df['Respon']))
         
         # Load the slangwords dictionary
