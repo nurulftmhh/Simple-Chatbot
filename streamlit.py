@@ -13,7 +13,7 @@ from tensorflow.keras.models import load_model
 def load_resources():
     try:
         # Load the LSTM model (using the correct file format)
-        model = load_model("model2_lstm.h5")
+        model = load_model("model_lstm.h5")
         
         # Load the label encoder
         with open("label_encoder.pkl", "rb") as f:
@@ -257,7 +257,7 @@ def main():
         st.session_state.conversation = []
         # Add initial greeting message
         st.session_state.conversation.append({
-            'text': "Halo! Saya adalah asisten pendaftaran mahasiswa baru UBE. Saya siap membantu Anda dengan informasi tentang program studi, syarat pendaftaran, jadwal, dan lainnya. Apa yang ingin Anda ketahui?",
+            'text': "Halo! Saya adalah asisten pendaftaran mahasiswa baru UBE. Saya siap membantu Anda dengan informasi terkait program studi, jadwal, syarat, cara pendaftaran, biaya kuliah, persiapan, proses, pengumuman seleksi, cara daftar ulang, dan informasi pkkmb bagi calon Mahasiswa Baru UBE. Apa yang ingin Anda tanyakan?",
             'is_user': False
         })
     
@@ -283,7 +283,7 @@ def main():
     
     # Display conversation history
     for message in st.session_state.conversation:
-        display_message(message['text'], message['is_user'])
+        display_message(message['text'], message['is_user'], message.get('is_follow_up', False))
     
     # Chat input
     with st.container():
@@ -334,7 +334,15 @@ def main():
         # Add bot response to conversation
         st.session_state.conversation.append({
             'text': response,
-            'is_user': False
+            'is_user': False,
+            'is_follow_up': False
+        })
+        
+        # Add follow-up question
+        st.session_state.conversation.append({
+            'text': "Apakah ada hal lain yang ingin Anda tanyakan?",
+            'is_user': False,
+            'is_follow_up': True
         })
         
         # Rerun to update the display
