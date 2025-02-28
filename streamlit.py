@@ -304,11 +304,7 @@ def main():
     
     # Main content
     st.markdown('<div class="main-content">', unsafe_allow_html=True)
-    
-    # Display conversation history
-    for message in st.session_state.conversation:
-        display_message(message['text'], message['is_user'], message.get('is_follow_up', False))
-    
+     
     # Chat input
     with st.container():
         # Add a JavaScript snippet to hide the input instructions 
@@ -355,20 +351,7 @@ def main():
             user_input, model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict
         )
         
-        # Add bot response to conversation
-        st.session_state.conversation.append({
-            'text': response,
-            'is_user': False,
-            'is_follow_up': False
-        })
-        
-        # Add follow-up question
-        st.session_state.conversation.append({
-            'text': "Apakah ada hal lain yang ingin Anda tanyakan?",
-            'is_user': False,
-            'is_follow_up': True
-        })
-        
+       
         # Rerun to update the display
         st.rerun()
     
