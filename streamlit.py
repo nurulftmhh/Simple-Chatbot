@@ -206,9 +206,9 @@ def local_css():
         margin: 0 !important;
     }   
     
-    # .st-emotion-cache-acwcvw {
-    #     display: none !important;
-    # }  
+    .st-emotion-cache-acwcvw {
+        display: none !important;
+    }  
     
     .main-content {
         margin-bottom: 100px;
