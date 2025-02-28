@@ -155,6 +155,14 @@ def local_css():
         margin-left: 2%;
     }
     
+    .follow-up-message {
+        background-color: #5DADE2;
+        color: white;
+        margin-right: auto;
+        margin-left: 2%;
+        margin-top: 8px;
+    }
+    
     .chat-input {
         position: fixed;
         bottom: 0;
@@ -217,7 +225,7 @@ def local_css():
     </style>
     """, unsafe_allow_html=True)
 
-def display_message(message, is_user=True):
+def display_message(message, is_user=True, is_follow_up=False):
     bot_avatar = "https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg"
     
     if is_user:
@@ -229,19 +237,34 @@ def display_message(message, is_user=True):
         </div>
         """, unsafe_allow_html=True)
     else:
-        st.markdown(f"""
-        <div class="chat-message">
-            <div class="message-content">
-                <img src="{bot_avatar}" class="avatar" alt="EduBot">
-                <div style="flex-grow: 1;">
-                    <div class="bot-name" style="color: white;">EduBot</div>
-                    <div class="message-bubble bot-message">
-                        {message}
+        if is_follow_up:
+            st.markdown(f"""
+            <div class="chat-message" style="margin-top: -5px;">
+                <div class="message-content">
+                    <img src="{bot_avatar}" class="avatar" alt="EduBot">
+                    <div style="flex-grow: 1;">
+                        <div class="bot-name" style="color: white;">EduBot</div>
+                        <div class="message-bubble follow-up-message">
+                            {message}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown(f"""
+            <div class="chat-message">
+                <div class="message-content">
+                    <img src="{bot_avatar}" class="avatar" alt="EduBot">
+                    <div style="flex-grow: 1;">
+                        <div class="bot-name" style="color: white;">EduBot</div>
+                        <div class="message-bubble bot-message">
+                            {message}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
 def main():
     st.set_page_config(
@@ -258,7 +281,8 @@ def main():
         # Add initial greeting message
         st.session_state.conversation.append({
             'text': "Halo! Saya adalah asisten pendaftaran mahasiswa baru UBE. Saya siap membantu Anda dengan informasi terkait program studi, jadwal, syarat, cara pendaftaran, biaya kuliah, persiapan, proses, pengumuman seleksi, cara daftar ulang, dan informasi pkkmb bagi calon Mahasiswa Baru UBE. Apa yang ingin Anda tanyakan?",
-            'is_user': False
+            'is_user': False,
+            'is_follow_up': False
         })
     
     # Load resources
