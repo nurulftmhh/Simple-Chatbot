@@ -13,7 +13,7 @@ from tensorflow.keras.models import load_model
 def load_resources():
     try:
         # Load the LSTM model (using the correct file format)
-        model = load_model("model2_lstm.h5")
+        model = load_model("model_lstm.h5")
         
         # Load the label encoder
         with open("label_encoder.pkl", "rb") as f:
