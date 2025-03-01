@@ -87,7 +87,7 @@ def predict_intent_and_response(user_input, model, label_encoder, text_vectorize
         predicted_class_index = np.argmax(prediction)
         confidence = prediction[0][predicted_class_index]
         
-        # Set default response if confidence is low
+        # Check confidence threshold
         if confidence < 0.5:
             return None, "Maaf, saya tidak dapat memahami pertanyaan Anda. Mohon ajukan pertanyaan ulang.", confidence
         
@@ -96,7 +96,7 @@ def predict_intent_and_response(user_input, model, label_encoder, text_vectorize
         
         # Get the corresponding response
         response = intent_response_mapping.get(predicted_intent, 
-            "Maaf, saya tidak dapat memahami pertanyaan Anda. Mohon ajukan pertanyaan ulang.")
+            "Maaf, saya tidak dapat memahami pertanyaan Anda. Mohon ajukan pertanyaan dengan cara yang berbeda.")
         
         return predicted_intent, response, confidence
     except Exception as e:
@@ -192,7 +192,7 @@ def local_css():
     
     .stTextInput input {
         padding: 0.8rem 1rem;
-        border-radius: 5px
+        border-radius: 5px;
         border: 1px solid #E9ECEF;
         font-size: 16px;
     }
@@ -219,10 +219,17 @@ def local_css():
         margin-bottom: 100px;
         padding: 0 20px;
     }
+    
+    .confidence-info {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        text-align: right;
+    }
     </style>
     """, unsafe_allow_html=True)
 
-def display_message(message, is_user=True):
+def display_message(message, is_user=True, confidence=None):
     bot_avatar = "https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg"
     
     if is_user:
@@ -234,6 +241,10 @@ def display_message(message, is_user=True):
         </div>
         """, unsafe_allow_html=True)
     else:
+        confidence_info = ""
+        if confidence is not None:
+            confidence_info = f'<div class="confidence-info">Confidence: {confidence:.2f}</div>'
+            
         st.markdown(f"""
         <div class="chat-message">
             <div class="message-content">
@@ -243,6 +254,7 @@ def display_message(message, is_user=True):
                     <div class="message-bubble bot-message">
                         {message}
                     </div>
+                    {confidence_info}
                 </div>
             </div>
         </div>
@@ -263,7 +275,8 @@ def main():
         # Add initial greeting message
         st.session_state.conversation.append({
             'text': "Halo! Saya adalah asisten pendaftaran mahasiswa baru UBE. Saya siap membantu Anda dengan informasi terkait program studi, jadwal, syarat, cara pendaftaran, biaya kuliah, persiapan, proses, pengumuman seleksi, cara daftar ulang, dan informasi pkkmb bagi calon Mahasiswa Baru UBE. Apa yang ingin Anda tanyakan?",
-            'is_user': False
+            'is_user': False,
+            'confidence': None
         })
     
     # Load resources
@@ -279,7 +292,7 @@ def main():
         <img src="https://miro.medium.com/v2/resize:fit:828/format:webp/1*I9KrlBSL9cZmpQU3T2nq-A.jpeg" 
              style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
         <h1 style="margin: 10px 0; font-size: 28px;">EduBot</h1>
-        <p style="color: white; font-size: 16px;">Asisten Pendaftaran Mahasiswa Baru</p>
+        <p style="color: gray; font-size: 16px;">Asisten Pendaftaran Mahasiswa Baru</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -288,7 +301,11 @@ def main():
     
     # Display conversation history
     for message in st.session_state.conversation:
-        display_message(message['text'], message['is_user'])
+        display_message(
+            message['text'], 
+            message['is_user'], 
+            message.get('confidence')
+        )
     
     # Chat input
     with st.container():
@@ -328,7 +345,8 @@ def main():
         # Add user message to conversation
         st.session_state.conversation.append({
             'text': user_input,
-            'is_user': True
+            'is_user': True,
+            'confidence': None
         })
         
         # Get bot response
@@ -336,10 +354,14 @@ def main():
             user_input, model, label_encoder, text_vectorizer, intent_response_mapping, slangwords_dict
         )
         
+        # For debugging (optional)
+        # st.write(f"Intent: {intent}, Confidence: {confidence}")
+        
         # Add bot response to conversation
         st.session_state.conversation.append({
             'text': response,
-            'is_user': False
+            'is_user': False,
+            'confidence': confidence
         })
         
         # Rerun to update the display
