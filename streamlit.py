@@ -85,15 +85,20 @@ def predict_intent_and_response(user_input, model, label_encoder, text_vectorize
         # Make prediction
         prediction = model.predict(input_seq)
         predicted_class_index = np.argmax(prediction)
+        confidence = prediction[0][predicted_class_index]
+        
+        # Set default response if confidence is low
+        if confidence < 0.5:
+            return None, "Maaf, saya tidak dapat memahami pertanyaan Anda. Mohon ajukan pertanyaan ulang.", confidence
         
         # Get the predicted intent
         predicted_intent = label_encoder.inverse_transform([predicted_class_index])[0]
         
         # Get the corresponding response
         response = intent_response_mapping.get(predicted_intent, 
-            "Maaf, saya tidak dapat memahami pertanyaan Anda. Mohon ajukan pertanyaan dengan cara yang berbeda.")
+            "Maaf, saya tidak dapat memahami pertanyaan Anda. Mohon ajukan pertanyaan ulang.")
         
-        return predicted_intent, response, prediction[0][predicted_class_index]
+        return predicted_intent, response, confidence
     except Exception as e:
         st.error(f"Error during prediction: {str(e)}")
         return None, "Terjadi kesalahan dalam memproses pertanyaan Anda. Silakan coba lagi.", 0.0
